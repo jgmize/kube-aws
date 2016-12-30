@@ -146,6 +146,7 @@ coreos:
 {{ if .Experimental.RemoteJournal.Enabled }}
     - name: remote-journal.service
       enable: true
+      command: start
       content: |
         [Unit]
         Description=Systemd journal to Remote host 
