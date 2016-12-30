@@ -63,6 +63,12 @@ func NewDefaultCluster() *Cluster {
 			Enabled:      false,
 			MaxBatchSize: 1,
 		},
+		RemoteJournal{
+			Enabled: false,
+			SSL:     true,
+			Host:    "example.com",
+			Port:    1234,
+		},
 	}
 
 	return &Cluster{
@@ -313,6 +319,7 @@ type Experimental struct {
 	Plugins               Plugins               `yaml:"plugins"`
 	Taints                []Taint               `yaml:"taints"`
 	WaitSignal            WaitSignal            `yaml:"waitSignal"`
+	RemoteJournal         RemoteJournal         `yaml:"remoteJournal"`
 }
 
 type AwsEnvironment struct {
@@ -324,6 +331,13 @@ type AuditLog struct {
 	Enabled bool   `yaml:"enabled"`
 	MaxAge  int    `yaml:"maxage"`
 	LogPath string `yaml:"logpath"`
+}
+
+type RemoteJournal struct {
+	Enabled bool   `yaml:"enabled"`
+	SSL     bool   `yaml:"ssl"`
+	Port    int    `yaml:"port"`
+	Host    string `yaml:"host"`
 }
 
 type AwsNodeLabels struct {

@@ -248,6 +248,12 @@ controller:
 #   plugins:
 #     rbac:
 #       enabled: true
+#   remoteJournal:
+#     enabled: true
+#     ssl: true
+#     host: example.com
+#     port: 1234
+
 
 # AWS Tags for cloudformation stack resources
 #stackTags:

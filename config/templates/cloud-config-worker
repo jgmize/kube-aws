@@ -116,6 +116,22 @@ coreos:
         RequiredBy=rkt-api.service
 {{ end }}
 
+{{ if .Experimental.RemoteJournal.Enabled }}
+    - name: remote-journal.service
+      enable: true
+      content: |
+        [Unit]
+        Description=Systemd journal to Remote host 
+        After=systemd-journald.service
+        Requires=systemd-journald.service
+        [Service]
+        ExecStart=/bin/sh -c "journalctl -f | ncat {{ if .Experimental.RemoteJournal.SSL }}--ssl {{ end }}{{ .Experimental.RemoteJournal.Host }} {{ .Experimental.RemoteJournal.Port }}"
+        TimeoutStartSec=0
+        Restart=always
+        [Install]
+        WantedBy=multi-user.target
+{{ end }}
+
 {{ if .UseCalico }}
     - name: calico-node.service
       command: start
